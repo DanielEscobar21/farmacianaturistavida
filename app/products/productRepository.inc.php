@@ -1,6 +1,6 @@
 <?php
-include_once '../config.inc.php';
-include_once '../connection.inc.php';
+include_once './app/config.inc.php';
+include_once './app/connection.inc.php';
 include_once 'products.inc.php';
 
 class productRepository
@@ -36,5 +36,28 @@ class productRepository
             }
         }
         return $product_insert;
+    }
+
+    public static function lastsProduct($connection){
+        $prod = [];
+        if(isset($connection)){            
+            try {
+                $sql = "SELECT * FROM products ORDER BY created_date DESC LIMIT 5";
+                $sentence = $connection -> prepare($sql);
+                $sentence -> execute();
+                $result = $sentence->fetchAll();
+                if(count($result)){
+                    foreach($result as $res){
+                        $prod[] = new products(
+                           $res['code_product'],$res['name_product'],$res['id_category'],
+                            $res['id_presentation'],$res['description_product'],base64_encode($res['image_product']),
+                            $res['price_product']);
+                    }
+                }
+            } catch (PDOException $ex) {
+                print 'ERROR: '.$ex->getMessage();
+            }
+        }
+        return $prod;
     }
 }

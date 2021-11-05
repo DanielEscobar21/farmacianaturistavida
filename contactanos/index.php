@@ -34,7 +34,7 @@ include_once '../layouts/navbar.inc.php'
                     <div>
                         <a href="https://www.facebook.com/farmacianaturistavida" class="footer__social"><i class='bx bxl-facebook'></i></a>
                         <a href="https://www.instagram.com/farmacianaturistavida" class="footer__social"><i class='bx bxl-instagram'></i></a>
-                        <a href="#" class="footer__social"><i class='bx bxl-whatsapp'></i></a>
+                        <a href="https://bit.ly/3bwpekV" class="footer__social"><i class='bx bxl-whatsapp'></i></a>
                     </div>
                     <p class="contact__description">O mandanos tu información y nos pondremos en contacto contigo.</p>
                     <div>

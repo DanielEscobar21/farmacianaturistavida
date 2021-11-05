@@ -1,4 +1,8 @@
 <?php
+include_once 'app/connection.inc.php';
+include_once 'app/products/showProduct.inc.php';
+
+
 include_once 'layouts/doc.inc.php';
 include_once 'layouts/navbar.inc.php';
 ?>
@@ -19,30 +23,16 @@ include_once 'layouts/navbar.inc.php';
 
         <!--========== Hiervas Medicinales ==========-->
         <section class="menu section bd-container" id="menu">
-            <span class="section-subtitle">Plantas Medicinales</span>
-            <h2 class="section-title">Lo mas Vendido</h2>
+            <span class="section-subtitle">Nuestro Catálogo</span>
+            <h2 class="section-title">Lo Último</h2>
 
             <div class="menu__container bd-grid">
-                <div class="menu__content">
-                    <img src="assets/img/hierba.jpg" alt="" class="menu__img">
-                    <h3 class="menu__name">Hierbabuena </h3>
-                    <span class="menu__detail">Ramos de Hierbabuena deshidratados.</span>
-                    <span class="menu__preci">MXN $22.00 </span>
-                </div>
-
-                <div class="menu__content">
-                    <img src="assets/img/eucalipto.jpg" alt="" class="menu__img">
-                    <h3 class="menu__name">Eucalipto</h3>
-                    <span class="menu__detail">Ramo de plantas de Eucalipto listo par autilizar.    </span>
-                    <span class="menu__preci">MXN $15.00</span>
-                </div>
-
-                <div class="menu__content">
-                    <img src="assets/img/manzanilla.jpg" alt="" class="menu__img">
-                    <h3 class="menu__name">Botones de Manzanilla y Menta Orgánica</h3>
-                    <span class="menu__detail">Infusión Herbal con Botones de Manzanilla y Menta Orgánica Mexicana, 200 gr</span>
-                    <span class="menu__preci">$359.50</span>
-                </div>
+                <?php
+                    connection::open_connection();
+                    showProduct::show_products();
+                    connection::close_connection()
+                ?>
+                <br>
                 <a href="catalogo/index.php" class="button">Ver Todo <i class='bx bx-right-arrow-alt'></i></a>
             </div>
         </section>
