@@ -1,7 +1,6 @@
 <?php
-include_once './app/config.inc.php';
-include_once './app/connection.inc.php';
-include_once 'products.inc.php';
+include_once DIRECTORIO_RAIZ.'/app/connection.inc.php';
+include_once DIRECTORIO_RAIZ.'/app/products/products.inc.php';
 
 class productRepository
 {
@@ -42,7 +41,11 @@ class productRepository
         $prod = [];
         if(isset($connection)){            
             try {
-                $sql = "SELECT * FROM products ORDER BY created_date DESC LIMIT 5";
+                $sql = "SELECT code_product, name_product, id_category,id_presentation, image_product,
+                price_product,id_potency,p.id_department, CASE COUNT(*) WHEN 1 THEN 
+                CONCAT('Desde $', Min(price_product)) WHEN 2 THEN CONCAT('Desde $', Min(price_product), 
+                ' MXN - hasta $', Max(price_product), ' MXN') END price FROM products p INNER JOIN 
+                departments d ON p.id_department = d.id_department GROUP BY name_product LIMIT 3";
                 $sentence = $connection -> prepare($sql);
                 $sentence -> execute();
                 $result = $sentence->fetchAll();
@@ -50,8 +53,8 @@ class productRepository
                     foreach($result as $res){
                         $prod[] = new products(
                            $res['code_product'],$res['name_product'],$res['id_category'],
-                            $res['id_presentation'],$res['description_product'],base64_encode($res['image_product']),
-                            $res['price_product']);
+                            $res['id_presentation'],$res['image_product'],
+                            $res['price'],$res['id_potency'],$res['id_department']);
                     }
                 }
             } catch (PDOException $ex) {
@@ -60,4 +63,34 @@ class productRepository
         }
         return $prod;
     }
+
+    public static function allProduct($connection){
+        $prod = [];
+        if(isset($connection)){            
+            try {
+                $sql = "SELECT *, CASE COUNT(*) WHEN 1 THEN 
+                CONCAT('Desde $', Min(price_product)) WHEN 2 THEN CONCAT('Desde $', Min(price_product), 
+                ' MXN - hasta $', Max(price_product), ' MXN') END price FROM products p INNER JOIN 
+                departments d ON p.id_department = d.id_department GROUP BY name_product";
+                $sentence = $connection -> prepare($sql);
+                $sentence -> execute();
+                $result = $sentence->fetchAll();
+                if(count($result)){
+                    foreach($result as $res){
+                        $prod[] = new products(
+                           $res['code_product'],$res['name_product'],$res['id_category'],
+                            $res['id_presentation'],$res['image_product'],
+                            $res['price'],$res['id_potency'],$res['id_department']);
+                    }
+                }
+            } catch (PDOException $ex) {
+                print 'ERROR: '.$ex->getMessage();
+            }
+        }
+        return $prod;
+    }
+
+
+
+    
 }

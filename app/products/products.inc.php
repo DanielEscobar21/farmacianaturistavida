@@ -5,27 +5,29 @@ class products
     private $name_product;
     private $id_category;
     private $id_presentation;
-    private $description_product;
     private $image_product;
     private $price_product;
+    private $id_potency;
+    private $id_departament;
 
     public function __construct(
         $code_product,
         $name_product,
         $id_category,
         $id_presentation,
-        $description_product,
         $image_product,
-        $price_product
+        $price_product,
+        $id_potency,
+        $id_departament
     ) {
         $this->code_product = $code_product;
         $this->name_product = $name_product;
         $this->id_category = $id_category;
         $this->id_presentation = $id_presentation;
-        $this->description_product = $description_product;
-        $this->description_product = $description_product;
         $this->image_product = $image_product;
         $this->price_product = $price_product;
+        $this->id_potency = $id_potency;
+        $this->id_departament = $id_departament;
     }
 
 
@@ -48,11 +50,6 @@ class products
         return $this->id_presentation;
     }
 
-    public function getDescription_product()
-    {
-        return $this->description_product;
-    }
-
     public function getImage_product()
     {
         return $this->image_product;
@@ -61,5 +58,15 @@ class products
     public function getPrice_product()
     {
         return $this->price_product;
+    }
+    
+    public function getId_potency()
+    {
+        return $this->id_potency;
+    }
+
+    public function getId_departament()
+    {
+        return $this->id_departament;
     }
 }

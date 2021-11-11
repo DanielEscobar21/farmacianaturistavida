@@ -1,8 +1,10 @@
 <?php
-include_once '../app/connection.inc.php';
-include_once '../app/contactanos.inc.php';
-include_once '../app/contactRepo.inc.php';
-include_once '../app/contactValidation.inc.php';
+include_once '../../app/config.inc.php';
+include_once DIRECTORIO_RAIZ . '/app/connection.inc.php';
+include_once DIRECTORIO_RAIZ . '/app/contactanos.inc.php';
+include_once DIRECTORIO_RAIZ . '/app/contactRepo.inc.php';
+include_once DIRECTORIO_RAIZ . '/app/contactValidation.inc.php';
+include_once DIRECTORIO_RAIZ . '/app/redirect.inc.php';
 
 if(isset($_POST['send'])){
     connection :: open_connection();
@@ -15,15 +17,15 @@ if(isset($_POST['send'])){
         $insert = contactRepo :: insert(connection :: get_connection(), $contact);
 
         if($insert){
-            
+            redirect::redirectTo(ROUTE_CONTACTANOS_SENDEDCONTACT . '?name_contact=' . $contact->getName_contact());
         }
     }
     connection :: close_connection();
 }
 
 $title ='Contáctanos - ';
-include_once '../layouts/doc.inc.php';
-include_once '../layouts/navbar.inc.php'
+include_once DIRECTORIO_RAIZ. '/layouts/doc.inc.php';
+include_once DIRECTORIO_RAIZ. '/layouts/navbar.inc.php'
 ?>
 <main class="l-main">
     <section class="contact section bd-container" id="contact">
@@ -41,9 +43,9 @@ include_once '../layouts/navbar.inc.php'
                         <form role="form" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                            <?php
                             if(isset($_POST['send'])){
-                                include_once '../layouts/formValidateContact.php';
+                                include_once DIRECTORIO_RAIZ.'/layouts/formValidateContact.php';
                             } else {
-                                include_once '../layouts/formEmptyContact.php';
+                                include_once DIRECTORIO_RAIZ.'/layouts/formEmptyContact.php';
                             }
                            ?>
                         </form>
@@ -58,5 +60,5 @@ include_once '../layouts/navbar.inc.php'
         </section>
     </main> 
 <?php
-include_once '../layouts/docend.inc.php';
+include_once DIRECTORIO_RAIZ.'/layouts/docend.inc.php';
 ?>
