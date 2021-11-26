@@ -45,7 +45,7 @@ class productRepository
                 price_product,id_potency,p.id_department, CASE COUNT(*) WHEN 1 THEN 
                 CONCAT('Desde $', Min(price_product)) WHEN 2 THEN CONCAT('Desde $', Min(price_product), 
                 ' MXN - hasta $', Max(price_product), ' MXN') END price FROM products p INNER JOIN 
-                departments d ON p.id_department = d.id_department GROUP BY name_product LIMIT 3";
+                departments d ON p.id_department = d.id_department GROUP BY name_product ORDER BY rand() LIMIT 4";
                 $sentence = $connection -> prepare($sql);
                 $sentence -> execute();
                 $result = $sentence->fetchAll();
@@ -64,14 +64,14 @@ class productRepository
         return $prod;
     }
 
-    public static function allProduct($connection){
+    public static function allProduct($connection, $category){
         $prod = [];
         if(isset($connection)){            
             try {
                 $sql = "SELECT *, CASE COUNT(*) WHEN 1 THEN 
                 CONCAT('Desde $', Min(price_product)) WHEN 2 THEN CONCAT('Desde $', Min(price_product), 
                 ' MXN - hasta $', Max(price_product), ' MXN') END price FROM products p INNER JOIN 
-                departments d ON p.id_department = d.id_department GROUP BY name_product";
+                departments d ON p.id_department = d.id_department WHERE id_category = $category GROUP BY name_product ORDER BY id_product";
                 $sentence = $connection -> prepare($sql);
                 $sentence -> execute();
                 $result = $sentence->fetchAll();
@@ -89,8 +89,5 @@ class productRepository
         }
         return $prod;
     }
-
-
-
     
 }

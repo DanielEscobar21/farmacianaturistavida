@@ -460,7 +460,7 @@ button {
 /*========== MENU ==========*/
 
 .nav-links {
-    width: 50%;
+    width: 66%;
     margin: auto;
     display: flex;
     background: var(--first-color);

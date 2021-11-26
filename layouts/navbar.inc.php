@@ -10,7 +10,6 @@
             <ul class="nav__list">
                 <li class="nav__item"><a href="<?php echo SERVER?>" class="nav__link active-link">Home</a></li>
                 <li class="nav__item"><a href="<?php echo ROUTE_ACERCADE?>" class="nav__link">Acerca De</a></li>
-                <li class="nav__item"><a href="<?php echo ROUTE_SERVICIOS?>" class="nav__link">Servicios</a></li>
                 <li class="nav__item"><a href="<?php echo ROUTE_CATALOGO?>" class="nav__link">Catálogo</a></li>
                 <li class="nav__item"><a href="<?php echo ROUTE_CONTACTANOS?>" class="nav__link">Contactanos</a></li>
             </ul>
